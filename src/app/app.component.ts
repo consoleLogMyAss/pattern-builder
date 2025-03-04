@@ -1,19 +1,21 @@
-import {Component, signal, WritableSignal} from '@angular/core';
-import {SwitchDirective} from './directives/switch.directive';
-import {SwitchCaseDirective} from './directives/switch-case.directive';
-import {SwitchDefaultDirective} from './directives/switch-default.directive';
-
+import { Component } from '@angular/core';
+import { Builder } from './models/Builder';
+import {Director} from './models/Director';
+import {ComplexObject} from './models/ComplexObject';
 
 @Component({
   selector: 'app-root',
-  imports: [
-    SwitchDirective,
-    SwitchCaseDirective,
-    SwitchDefaultDirective
-  ],
+  imports: [],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  public count: WritableSignal<number> = signal(1)
+  public builder: Builder = new Builder();
+  public director: Director = new Director(this.builder);
+
+  public objConfig: ComplexObject = this.director.construct();
+
+  constructor() {
+    console.log(this.objConfig)
+  }
 }
