@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const myUserData = builder<Builder<TUser>>()
+    const myUserData: TUser = builder<TUser>()
       .setAge(25)
       .setName('Max')
       .setJob('Frontend developer')
@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
 
     console.log(myUserData);
 
-    const myCardData = builder<Builder<TCard>>()
+    const myCardData: TCard = builder<TCard>()
       .setAmount(20)
       .setTitle('Pay this cookie')
       .setDescription('This is descriptions')

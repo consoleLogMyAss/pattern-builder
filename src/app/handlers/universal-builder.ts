@@ -7,21 +7,21 @@ export type Builder<T> = {
   build(): T;
 };
 
-export function builder<T>(): T {
-  let buildData: any = {};
+export function builder<T>(): Builder<T> {
+  let buildData: Partial<T> = {};
 
   return new Proxy({}, {
-    get: (_, property: string, receiver: T) => {
+    get: (_, property: string, receiver: Builder<T>) => {
       if (property === "build") {
         return () => buildData;
       }
 
-      return (value: any) => {
-        const key: string = property.toLowerCase().replace('set', '');
+      return <K extends Extract<keyof T, string>>(value: T[K]) => {
+        const key: K = property.toLowerCase().replace('set', '') as K;
         buildData[key] = value;
 
         return receiver;
       };
     }
-  }) as T;
+  }) as Builder<T>;
 }
