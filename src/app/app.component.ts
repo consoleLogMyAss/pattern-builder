@@ -6,6 +6,7 @@ import { Builder, builder } from './handlers/universal-builder';
 
 type TUser = {
   name: string,
+  fullName: string,
   age: number,
   job: string,
 }
@@ -23,8 +24,8 @@ type TCard = {
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-  public builderS: BuilderS = new BuilderS();
-  public director: Director = new Director(this.builderS);
+  public builderStandard: BuilderS = new BuilderS();
+  public director: Director = new Director(this.builderStandard);
 
   public objConfig: ComplexObject = this.director.construct();
 
@@ -37,6 +38,7 @@ export class AppComponent implements OnInit {
       .setAge(25)
       .setName('Max')
       .setJob('Frontend developer')
+      .setFullName('Max Brown')
       .build();
 
     console.log(myUserData);

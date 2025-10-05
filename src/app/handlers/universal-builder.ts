@@ -17,7 +17,9 @@ export function builder<T>(): Builder<T> {
       }
 
       return <K extends Extract<keyof T, string>>(value: T[K]) => {
-        const key: K = property.toLowerCase().replace('set', '') as K;
+        let key: K = property.replace('set', '') as K;
+        key = key[0].toLowerCase() + key.slice(1) as K;
+
         buildData[key] = value;
 
         return receiver;
